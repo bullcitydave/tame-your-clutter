@@ -36,8 +36,8 @@
       </div>
 
       <div class="jumbotron">
-        <h1>'Allo, Guv'nor!</h1>
-        <p class="lead">Always a pleasure scaffolding your apps.</p>
+        <h1>'Allo, <span data-bind="text: name"></h1>
+        <!-- <p class="lead">Your current count is <span data-bind="text: (self.getCount() != undefined) ? self.getCount() : 0, style: { color : (self.getCount() > 500) ? 'red' : 'blue'}">.</p> -->
         <p><a class="btn btn-lg btn-success" href="#">Brilliant!</a></p>
       </div>
 
@@ -59,9 +59,23 @@
         </div>
       </div>
 
+      <div class="row marketing">
+        <div class="col-lg-11 col-offset-1">
+          <!-- ko foreach: things -->
+            <p class="item-listing">
+              <span class="col-lg-6 col-offset-3 item" data-bind="text: $data.attributes.stuff"></span>
+              <span class="col-lg-2 count" data-bind="text: $data.attributes.count"></span>
+              </p>
+            <!-- /ko -->
+          </div>
+        </div>
+
       <div class="footer">
         <p>♥ from the Yeoman team</p>
+        <!-- <button type="submit" data-bind="text: (self.getCount() == 781) ? 'Create' : 'Update'"></button> -->
       </div>
+
+
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -77,6 +91,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/parse/parse.min.js"></script>
     <script src="../bower_components/knockout/dist/knockout.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -98,6 +113,109 @@
 
         <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <script src="scripts/toastie.js"></script>
         <!-- endbuild -->
+
+        <script>
+
+        // PARSE CONNECTION
+        // This function is for me while I'm testing
+        function doesConnectionExist() {
+          var xhr = new XMLHttpRequest();
+          var file = "https://avatars1.githubusercontent.com/u/7648787";
+          var randomNum = Math.round(Math.random() * 10000);
+
+          xhr.open('HEAD', file + "?rand=" + randomNum, false);
+
+          try {
+            xhr.send();
+
+            if (xhr.status >= 200 && xhr.status < 304) {
+              return true;
+            } else {
+              return false;
+            }
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function runningLocally() {
+          if (document.location.href.indexOf("localhost") > -1) {
+            console.log('Running locally');
+            return true;
+          }
+        }
+
+        var local = runningLocally();
+        console.log(local);
+
+
+
+        if (!(doesConnectionExist()))  {
+          alert('It looks like there may be a problem with your internet connection.' );
+        }
+        try {
+          Parse.initialize("EohFLOiyiQ8bLZ1b4AKTksANagOxnKmKvTNWk9ny", "Ba9ZGY0yfK5tgrt27SJXwy6mTB4aS3LZFvN9QvrJ");
+        }  catch (exception)
+      {
+        alert('It looks like AddStuff is having trouble connecting to its database server. We\'re quite sorry. Please try again shortly.' )
+      };
+
+       ////////
+
+
+          var viewModel = function() {
+            this.name = 'Bull City Dave';
+          };
+          // ko.applyBindings(viewModel);
+
+          var firstThingsViewModel = {
+            startDate : "1/1/2015",
+            count     : 781
+          }
+
+    //       var thingsViewModel = function() {
+    //         var self = this;
+    //         self.startDate = "1/1/2015";
+    //         self.count = 781;
+    //         self.color = "blue";
+    //         self.getCount = function() {
+    //           return self.count;
+    //         }
+    //         self.getColor = function() {
+    //           return self.color;
+    //         }
+    // //         self.things = [
+    // //       {item: "bags of random screws", count: 3},
+    // //     {item: "checkbooks", count: 5},
+    // //   {    item:"remote control to AC", count: 1},
+    // // {  item:"computer cables/cords", count: 2}
+    // //         ]
+    //         self.things = getStuff();
+    //       }
+
+          // function getStuff () {
+            var stuffQuery = new Parse.Query("stuffEntry");
+            stuffQuery.limit(1000);
+            stuffQuery.descending('createdAt');
+            var stuff = stuffQuery.collection();
+            stuff.fetch({
+              success: function(stuff) {
+
+                var thingsViewModel = function () {
+                  var self= this;
+                  self.things = stuff.models;
+                };
+                ko.applyBindings(thingsViewModel);
+              },
+              error: function(stuff, error) {
+                console.error(error);
+              }
+            });
+        // }
+
+
+        </script>
 </body>
 </html>
