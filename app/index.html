@@ -36,34 +36,20 @@
       </div>
 
       <div class="jumbotron">
-        <h1>'Allo, <span data-bind="text: name"></h1>
+        <h1>'Allo, <span data-bind="text: user"></h1>
         <!-- <p class="lead">Your current count is <span data-bind="text: (self.getCount() != undefined) ? self.getCount() : 0, style: { color : (self.getCount() > 500) ? 'red' : 'blue'}">.</p> -->
         <p><a class="btn btn-lg btn-success" href="#">Brilliant!</a></p>
       </div>
 
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>HTML5 Boilerplate</h4>
-          <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
 
-          <h4>Sass</h4>
-          <p>Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.</p>
-
-          <h4>Bootstrap</h4>
-          <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
-          <h4>Knockout.js</h4>
-          <p>MVVM Framework.</p>
-          <h4>Modernizr</h4>
-          <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
-
-        </div>
-      </div>
 
       <div class="row marketing">
         <div class="col-lg-11 col-offset-1">
+          <h4 data-bind="text: name"></h4>
+          <h4 class="col-lg-offset-5 col-lg-2 total" data-bind="text: total"></h4>
           <!-- ko foreach: things -->
             <p class="item-listing">
-              <span class="col-lg-6 col-offset-3 item" data-bind="text: $data.attributes.stuff"></span>
+              <span class="col-lg-6 col-lg-offset-3 item" data-bind="text: $data.attributes.stuff"></span>
               <span class="col-lg-2 count" data-bind="text: $data.attributes.count"></span>
               </p>
             <!-- /ko -->
@@ -195,24 +181,49 @@
     //         self.things = getStuff();
     //       }
 
-          // function getStuff () {
-            var stuffQuery = new Parse.Query("stuffEntry");
-            stuffQuery.limit(1000);
-            stuffQuery.descending('createdAt');
-            var stuff = stuffQuery.collection();
-            stuff.fetch({
-              success: function(stuff) {
 
-                var thingsViewModel = function () {
-                  var self= this;
-                  self.things = stuff.models;
-                };
-                ko.applyBindings(thingsViewModel);
-              },
-              error: function(stuff, error) {
-                console.error(error);
-              }
-            });
+function ThingsViewModel(name, things) {
+  var self = this;
+
+  self.user = 'Bull City Dave';
+  self.name = name;
+
+  self.things = things;
+
+
+
+  self.getName = function() {
+    return self.name;
+  };
+
+  self.getTotal = function() {
+    var total = 0;
+    for (var i = 0; i < things.length; i++) {
+      total += stuff.models[i].attributes.count;
+    }
+    return total;
+  }
+
+  self.total = self.getTotal();
+};
+
+
+          // function getStuff () {
+  var stuffQuery = new Parse.Query("stuffEntry");
+  stuffQuery.limit(1000);
+  stuffQuery.descending('createdAt');
+  var stuff = stuffQuery.collection();
+  stuff.fetch({
+    success: function(stuff) {
+
+      var thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models);
+
+      ko.applyBindings(thingsViewModel);
+    },
+    error: function(stuff, error) {
+      console.error(error);
+    }
+  });
         // }
 
 
