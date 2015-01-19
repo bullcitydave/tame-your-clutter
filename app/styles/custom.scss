@@ -1,0 +1,57 @@
+$custom-main-font: 'Open Sans', 'Helvetica', sans-serif;
+$custom-secondary-font: 'Cherry Cream Soda', serif;
+
+
+/* COLORS : see http://rgb.to/color/6478/dark-cherry-red */
+$dark-cherry-red: rgb(108, 19, 43);
+$dark-blue: rgb(19, 43, 108);
+$green: rgb(19, 108, 85);
+$brown: rgb(108, 85, 19);
+
+body {
+  font-family: $custom-main-font;
+}
+
+h1 {
+  font-family: $custom-secondary-font;
+  color: $dark-blue;
+}
+
+h3 {
+  font-family: $custom-secondary-font;
+  color: $dark-cherry-red;
+}
+
+.nav-pills > li > a {
+  color: $dark-blue;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  background-color: $dark-blue;
+}
+
+
+.stuff-list {
+  padding: 30px;
+  border: 1px solid;
+  border-radius: 25px;
+}
+
+.btn-start {
+  color: white;
+  background-color: rgba($brown,.5);
+  border-color: $brown;
+}
+
+table.item-listing {
+  thead {
+    font-size: 2.5em;
+    font-family: $custom-main-font;
+  }
+  tbody {
+    th {
+      text-align: center;
+      font-size: 2.0em;
+      font-family: $custom-secondary-font;
+    }
+  }
+}

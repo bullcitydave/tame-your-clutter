@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <title>toastie-js</title>
+    <title>1047 things</title>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css styles/vendor.css -->
@@ -12,8 +12,14 @@
     <!-- endbower -->
     <!-- endbuild -->
 
+    <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Cherry+Cream+Soda' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!-- end fonts -->
+
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/custom.css">
     <!-- endbuild -->
 
     <!-- build:js scripts/vendor/modernizr.js -->
@@ -30,34 +36,37 @@
         <ul class="nav nav-pills pull-right">
           <li class="active"><a href="#">Home</a></li>
           <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#">Sign Up</a></li>
+          <li><a href="#">Login</a></li>
         </ul>
-        <h3 class="text-muted">toastie-js</h3>
+        <h3 class="text-muted">1047 things</h3>
       </div>
 
       <div class="jumbotron">
-        <h1>'Allo, <span data-bind="text: user"></h1>
+        <h1>Tame Your Clutter</h1>
         <!-- <p class="lead">Your current count is <span data-bind="text: (self.getCount() != undefined) ? self.getCount() : 0, style: { color : (self.getCount() > 500) ? 'red' : 'blue'}">.</p> -->
-        <p><a class="btn btn-lg btn-success" href="#">Brilliant!</a></p>
+        <p><a class="btn btn-lg btn-start" href="#">Start Now</a></p>
       </div>
 
 
 
-      <div class="row marketing">
+      <div class="row stuff-list">
         <div class="col-lg-11 col-offset-1">
-          <h4 data-bind="text: name"></h4>
-          <h4 class="col-lg-offset-5 col-lg-2 total" data-bind="text: total"></h4>
-          <!-- ko foreach: things -->
-            <p class="item-listing">
-              <span class="col-lg-6 col-lg-offset-3 item" data-bind="text: $data.attributes.stuff"></span>
-              <span class="col-lg-2 count" data-bind="text: $data.attributes.count"></span>
-              </p>
-            <!-- /ko -->
+            <table class="item-listing">
+              <thead data-bind="text: name"></thead>
+              <th colspan=12 style="text-align:center" data-bind="text: total"></th>
+              <tbody data-bind="foreach: things">
+                <tr>
+                  <td class="col-lg-6 col-lg-offset-3 item" data-bind="text: $data.attributes.stuff"></td>
+                  <td class="col-lg-2 count" data-bind="text: $data.attributes.count"></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
       <div class="footer">
-        <p>♥ from the Yeoman team</p>
+        <p>©2015 2047 Things</p>
         <!-- <button type="submit" data-bind="text: (self.getCount() == 781) ? 'Create' : 'Update'"></button> -->
       </div>
 
