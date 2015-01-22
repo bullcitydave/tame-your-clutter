@@ -1,0 +1,1 @@
+function fac(t){return 0==t?1:fac(t-1)*t}function sum(t,n){return t+n}function sum(t){for(total=0,i=0;i<t.length;i++)total+=t[i];return total}function range(t,n){if(array=[],n>t)for(;n>=t;)array.push(t),t++;return array}define(["jquery","knockout"],function(t,n){var r={status:n.observable("active")};n.applyBindings(r,t("html")[0])});
