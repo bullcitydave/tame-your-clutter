@@ -53,5 +53,8 @@ table.item-listing {
       font-size: 2.0em;
       font-family: $custom-secondary-font;
     }
+    tr:nth-child(even) {
+      background-color: #eee;
+    }
   }
 }

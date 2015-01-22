@@ -55,10 +55,11 @@
             <table class="item-listing">
               <thead data-bind="text: name"></thead>
               <th colspan=12 style="text-align:center" data-bind="text: total"></th>
-              <tbody data-bind="foreach: things">
+              <tbody data-bind="foreach: { data : things}">
                 <tr>
-                  <td class="col-lg-6 col-lg-offset-3 item" data-bind="text: $data.attributes.stuff"></td>
+                  <td class="col-lg-6 item" data-bind="text: $data.attributes.stuff"></td>
                   <td class="col-lg-2 count" data-bind="text: $data.attributes.count"></td>
+                  <td class="col-lg-3 date" data-bind="text: $data.attributes.dateDiscarded.toDateString(), afterRender: $parent.sleep(2000)"></td>
                 </tr>
               </tbody>
             </table>
@@ -214,6 +215,18 @@ function ThingsViewModel(name, things) {
   }
 
   self.total = self.getTotal();
+
+
+
+  self.sleep =
+  function(milliseconds) {
+    var currentTime = new Date().getTime();
+
+    while (currentTime + milliseconds >= new Date().getTime()) {
+    }
+    console.log('done!');
+  }
+
 };
 
 
@@ -234,6 +247,14 @@ function ThingsViewModel(name, things) {
     }
   });
         // }
+        function sleep(milliseconds) {
+          var currentTime = new Date().getTime();
+
+          while (currentTime + milliseconds >= new Date().getTime()) {
+          }
+          console.log('done!');
+        }
+
 
 
         </script>
