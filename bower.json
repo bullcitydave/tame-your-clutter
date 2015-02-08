@@ -1,0 +1,10 @@
+{
+  "name": "toastie-js",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass-official": "~3.2.0",
+    "modernizr": "~2.8.1",
+    "knockout": "~3.2.0",
+    "parse" : "~1.3"
+  }
+}

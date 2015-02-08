@@ -1,0 +1,43 @@
+/* COLORS : see http://rgb.to/color/6478/dark-cherry-red */
+body {
+  font-family: "Open Sans", "Helvetica", sans-serif; }
+
+h1 {
+  font-family: "Fjalla One", serif;
+  color: #132b6c; }
+
+h3 {
+  font-family: "Fjalla One", serif;
+  color: #6c132b; }
+
+.nav-pills > li > a {
+  color: #132b6c; }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  background-color: #132b6c; }
+
+.stuff-list {
+  padding: 30px;
+  border: 1px solid;
+  border-radius: 25px; }
+
+.btn-start {
+  color: white;
+  background-color: rgba(108, 85, 19, 0.5);
+  border-color: #6c5513; }
+
+table.item-listing {
+  width: 100%; }
+  table.item-listing thead {
+    font-size: 2.5em;
+    font-family: "Open Sans", "Helvetica", sans-serif; }
+  table.item-listing tbody th {
+    text-align: center;
+    font-size: 2.0em;
+    font-family: "Fjalla One", serif; }
+  table.item-listing tbody tr:nth-child(even) {
+    background-color: #eee; }
+  table.item-listing tbody tr td.number {
+    text-align: right; }
+
+/*# sourceMappingURL=custom.css.map */
