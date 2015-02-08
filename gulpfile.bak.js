@@ -1,18 +1,11 @@
 'use strict';
-<<<<<<< HEAD
 
-=======
->>>>>>> master
 // generated on 2015-01-10 using generator-knockout-gulp-bootstrap 0.0.2
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 // gulp.task('styles', function () {
-<<<<<<< HEAD
 //   return gulp.src('app/styles/*.scss')
-=======
-//   return gulp.src('app/styles/main.scss')
->>>>>>> master
 //     .pipe($.plumber())
 //     .pipe($.rubySass({
 //       style: 'expanded',
@@ -21,11 +14,7 @@ var $ = require('gulp-load-plugins')();
 //     .pipe($.autoprefixer('last 1 version'))
 //     .pipe(gulp.dest('.tmp/styles'));
 // });
-<<<<<<< HEAD
 //
-=======
-
->>>>>>> master
 gulp.task('styles', function() {
   return
     $.rubySass('app/styles/*.scss')
@@ -135,11 +124,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
   gulp.watch('bower.json', ['wiredep']);
 });
 
-<<<<<<< HEAD
 gulp.task('build', [ 'html', 'images', 'fonts', 'extras'], function () {
-=======
-gulp.task('build', ['html', 'images', 'fonts', 'extras'], function () {
->>>>>>> master
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
