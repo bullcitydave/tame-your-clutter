@@ -1,5 +1,5 @@
 $custom-main-font: 'Open Sans', 'Helvetica', sans-serif;
-$custom-secondary-font: 'Cherry Cream Soda', serif;
+$custom-secondary-font: 'Fjalla One', serif;
 
 
 /* COLORS : see http://rgb.to/color/6478/dark-cherry-red */
@@ -43,6 +43,7 @@ h3 {
 }
 
 table.item-listing {
+  width: 100%;
   thead {
     font-size: 2.5em;
     font-family: $custom-main-font;
@@ -55,6 +56,13 @@ table.item-listing {
     }
     tr:nth-child(even) {
       background-color: #eee;
+    }
+    tr {
+      td {
+        &.number {
+          text-align: right;
+        }
+      }
     }
   }
 }

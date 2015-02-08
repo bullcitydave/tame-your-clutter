@@ -1,25 +1,35 @@
 'use strict';
+
 // generated on 2015-01-10 using generator-knockout-gulp-bootstrap 0.0.2
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
-gulp.task('styles', function () {
-  return gulp.src('app/styles/*.scss')
-    .pipe($.plumber())
-    .pipe($.rubySass({
-      style: 'expanded',
-      precision: 10
-    }))
+// gulp.task('styles', function () {
+//   return gulp.src('app/styles/*.scss')
+//     .pipe($.plumber())
+//     .pipe($.rubySass({
+//       style: 'expanded',
+//       precision: 10
+//     }))
+//     .pipe($.autoprefixer('last 1 version'))
+//     .pipe(gulp.dest('.tmp/styles'));
+// });
+//
+gulp.task('styles', function() {
+  return
+    $.rubySass('app/styles/*.scss')
+      .on('error', handleError)
     .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('.tmp/styles'));
+    .pipe(gulp.dest('.tmp/styles'))
+    .pipe($.size());
 });
 
-gulp.task('jshint', function () {
-  return gulp.src('app/scripts/**/*.js')
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
-});
+// gulp.task('jshint', function () {
+//   return gulp.src('app/scripts/**/*.js')
+//     .pipe($.jshint())
+//     .pipe($.jshint.reporter('jshint-stylish'))
+//     .pipe($.jshint.reporter('fail'));
+// });
 
 gulp.task('html', ['styles'], function () {
   var lazypipe = require('lazypipe');
@@ -114,7 +124,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
   gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', [ 'html', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

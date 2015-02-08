@@ -13,7 +13,7 @@
     <!-- endbuild -->
 
     <!-- fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Cherry+Cream+Soda' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <!-- end fonts -->
 
@@ -39,7 +39,7 @@
           <li><a href="#">Sign Up</a></li>
           <li><a href="#">Login</a></li>
         </ul>
-        <h3 class="text-muted">1047 things</h3>
+        <h3 class="text-muted">Tame Your Clutter</h3>
       </div>
 
       <div class="jumbotron">
@@ -51,15 +51,15 @@
 
 
       <div class="row stuff-list">
-        <div class="col-lg-11 col-offset-1">
+        <div class="col-lg-10 col-offset-1">
             <table class="item-listing">
               <thead data-bind="text: name"></thead>
               <th colspan=12 style="text-align:center" data-bind="text: total"></th>
               <tbody data-bind="foreach: { data : things}">
                 <tr>
                   <td class="col-lg-6 item" data-bind="text: $data.attributes.stuff"></td>
-                  <td class="col-lg-2 count" data-bind="text: $data.attributes.count"></td>
-                  <td class="col-lg-3 date" data-bind="text: $data.attributes.dateDiscarded.toDateString(), afterRender: $parent.sleep(2000)"></td>
+                  <td class="col-lg-2 number" data-bind="text: $data.attributes.count"></td>
+                  <td class="col-lg-3 date" data-bind="text: $parent.formatDate($data.attributes.dateDiscarded)"></td>
                 </tr>
               </tbody>
             </table>
@@ -116,47 +116,47 @@
 
         // PARSE CONNECTION
         // This function is for me while I'm testing
-        function doesConnectionExist() {
-          var xhr = new XMLHttpRequest();
-          var file = "https://avatars1.githubusercontent.com/u/7648787";
-          var randomNum = Math.round(Math.random() * 10000);
+        // function doesConnectionExist() {
+        //   var xhr = new XMLHttpRequest();
+        //   var file = "https://avatars1.githubusercontent.com/u/7648787";
+        //   var randomNum = Math.round(Math.random() * 10000);
+        //
+        //   xhr.open('HEAD', file + "?rand=" + randomNum, false);
+        //
+        //   try {
+        //     xhr.send();
+        //
+        //     if (xhr.status >= 200 && xhr.status < 304) {
+        //       return true;
+        //     } else {
+        //       return false;
+        //     }
+        //   } catch (e) {
+        //     return false;
+        //   }
+        // }
+        //
+        // function runningLocally() {
+        //   if (document.location.href.indexOf("localhost") > -1) {
+        //     console.log('Running locally');
+        //     return true;
+        //   }
+        // }
+        //
+        // var local = runningLocally();
+        // console.log(local);
 
-          xhr.open('HEAD', file + "?rand=" + randomNum, false);
-
-          try {
-            xhr.send();
-
-            if (xhr.status >= 200 && xhr.status < 304) {
-              return true;
-            } else {
-              return false;
-            }
-          } catch (e) {
-            return false;
-          }
-        }
-
-        function runningLocally() {
-          if (document.location.href.indexOf("localhost") > -1) {
-            console.log('Running locally');
-            return true;
-          }
-        }
-
-        var local = runningLocally();
-        console.log(local);
-
-
-
-        if (!(doesConnectionExist()))  {
-          alert('It looks like there may be a problem with your internet connection.' );
-        }
-        try {
+        //
+        //
+        // if (!(doesConnectionExist()))  {
+        //   alert('It looks like there may be a problem with your internet connection.' );
+        // }
+        // try {
           Parse.initialize("EohFLOiyiQ8bLZ1b4AKTksANagOxnKmKvTNWk9ny", "Ba9ZGY0yfK5tgrt27SJXwy6mTB4aS3LZFvN9QvrJ");
-        }  catch (exception)
-      {
-        alert('It looks like AddStuff is having trouble connecting to its database server. We\'re quite sorry. Please try again shortly.' )
-      };
+      //   }  catch (exception)
+      // {
+      //   alert('It looks like AddStuff is having trouble connecting to its database server. We\'re quite sorry. Please try again shortly.' )
+      // };
 
        ////////
 
@@ -201,7 +201,6 @@ function ThingsViewModel(name, things) {
   self.things = things;
 
 
-
   self.getName = function() {
     return self.name;
   };
@@ -212,9 +211,18 @@ function ThingsViewModel(name, things) {
       total += stuff.models[i].attributes.count;
     }
     return total;
-  }
+  };
+
+  self.formatDate = function(date) {
+    var month = ('0' + (date.getMonth() +1)).toString().slice(-2);
+    var dayOfMonth = ('0' + date.getDate()).toString().slice(-2);
+    var year = date.getFullYear();
+    return (month + '-' + dayOfMonth + '-' + year);
+  };
 
   self.total = self.getTotal();
+
+
 
 
 
@@ -228,6 +236,17 @@ function ThingsViewModel(name, things) {
   }
 
 };
+
+
+// function ThingViewModel(thing) {
+//   var self = this;
+//
+//   self.getAge = function() {
+//     return self.age;
+//   };
+//
+// };
+
 
 
           // function getStuff () {
@@ -254,8 +273,6 @@ function ThingsViewModel(name, things) {
           }
           console.log('done!');
         }
-
-
 
         </script>
 </body>
