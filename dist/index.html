@@ -45,13 +45,20 @@
       <div class="row stuff-list">
         <div class="col-lg-10 col-offset-1">
             <table class="item-listing">
-              <thead data-bind="text: name"></thead>
+              <thead>
+                <tr>
+                  <td class="col-lg-8 title" data-bind="text: name"></td>
+                  <td class="col-lg-2 text-right" colspan=2>
+                    <a class="btn btn-lg btn-edit text-right">Edit</a>
+                  </td>
+                </tr>
+              </thead>
               <th colspan=12 style="text-align:center" data-bind="text: total"></th>
               <tbody data-bind="foreach: { data : things}">
                 <tr>
-                  <td class="col-lg-6 item" data-bind="text: $data.attributes.stuff"></td>
+                  <td class="col-lg-4 item" data-bind="text: $data.attributes.stuff"></td>
                   <td class="col-lg-2 number" data-bind="text: $data.attributes.count"></td>
-                  <td class="col-lg-3 date" data-bind="text: $parent.formatDate($data.attributes.dateDiscarded)"></td>
+                  <td class="col-lg-4 date text-right" data-bind="text: $parent.formatDate($data.attributes.dateDiscarded)"></td>
                 </tr>
               </tbody>
             </table>
@@ -204,6 +211,15 @@ function ThingsViewModel(name, things) {
     }
     console.log('done!');
   }
+
+  self.edit = function() {
+    $('tbody td').attr('contenteditable',"true");
+    $('table.item-listing').addClass('editable');
+  }
+
+  $('.btn.btn-edit').on('click', function (e) {
+     self.edit();
+  })
 
 };
 
