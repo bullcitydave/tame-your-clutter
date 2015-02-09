@@ -42,9 +42,50 @@ h3 {
   border-color: $brown;
 }
 
+.btn-edit {
+  color: white;
+  border-color: black;
+  background-color: $dark-blue;
+  position: relative;
+  &:hover, &:focus {
+    color: white;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.6);
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+  }
+  /* on hover we animate the width to
+   * 100% and opacity to 0 so the element
+   * grows and fades out
+   */
+  &:hover:after {
+      width: 120%;
+      background-color: rgba(255,255,255,0);
+      -webkit-transition: all 0.4s ease-out;
+      -moz-transition: all 0.4s ease-out;
+      -ms-transition: all 0.4s ease-out;
+      -o-transition: all 0.4s ease-out;
+      transition: all 0.4s ease-out;
+  }
+}
+
 table.item-listing {
   width: 100%;
-  thead {
+  &.editable {
+    border-collapse: separate;
+    border-spacing: 5px;
+  }
+  thead td.title {
     font-size: 2.5em;
     font-family: $custom-main-font;
   }
@@ -61,6 +102,12 @@ table.item-listing {
       td {
         &.number {
           text-align: right;
+        }
+        &[contenteditable="true"] {
+          border: 1px solid #aeaeae;
+          border-radius: 6px;
+          padding-top: 5px;
+          padding-bottom: 5px;
         }
       }
     }
