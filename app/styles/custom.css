@@ -17,9 +17,10 @@ h3 {
   background-color: #132b6c; }
 
 .stuff-list {
-  padding: 30px;
+  padding: 15px;
   border: 1px solid;
-  border-radius: 25px; }
+  border-radius: 25px;
+  margin: 0; }
 
 .btn-start {
   color: white;
@@ -65,20 +66,31 @@ table.item-listing {
     border-collapse: separate;
     border-spacing: 5px; }
   table.item-listing thead td.title {
-    font-size: 2.5em;
-    font-family: "Open Sans", "Helvetica", sans-serif; }
+    font-size: 1.5em;
+    font-family: "Open Sans", "Helvetica", sans-serif;
+    padding-left: 5px; }
+    @media (min-width: 768px) {
+      table.item-listing thead td.title {
+        font-size: 2.5em; } }
+    table.item-listing thead td.title + td {
+      padding-right: 0; }
   table.item-listing tbody th {
     text-align: center;
     font-size: 2.0em;
     font-family: "Fjalla One", serif; }
   table.item-listing tbody tr:nth-child(even) {
     background-color: #eee; }
-  table.item-listing tbody tr td.number {
-    text-align: right; }
-  table.item-listing tbody tr td[contenteditable="true"] {
-    border: 1px solid #aeaeae;
-    border-radius: 6px;
-    padding-top: 5px;
-    padding-bottom: 5px; }
+  table.item-listing tbody tr td {
+    font-size: 0.9em; }
+    table.item-listing tbody tr td.number {
+      text-align: right; }
+    table.item-listing tbody tr td[contenteditable="true"] {
+      border: 1px solid #aeaeae;
+      border-radius: 6px;
+      padding-top: 5px;
+      padding-bottom: 5px; }
+    @media (min-width: 768px) {
+      table.item-listing tbody tr td {
+        font-size: 1.0em; } }
 
 /*# sourceMappingURL=custom.css.map */

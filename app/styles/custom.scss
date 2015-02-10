@@ -31,9 +31,10 @@ h3 {
 
 
 .stuff-list {
-  padding: 30px;
+  padding: 15px;
   border: 1px solid;
   border-radius: 25px;
+  margin: 0;
 }
 
 .btn-start {
@@ -85,9 +86,18 @@ table.item-listing {
     border-collapse: separate;
     border-spacing: 5px;
   }
-  thead td.title {
-    font-size: 2.5em;
-    font-family: $custom-main-font;
+  thead {
+      td.title {
+        font-size: 1.5em;
+        @media (min-width: 768px) {
+          font-size: 2.5em;
+        }
+        font-family: $custom-main-font;
+        padding-left: 5px;
+        &+td {
+          padding-right: 0;
+        }
+      }
   }
   tbody {
     th {
@@ -100,6 +110,9 @@ table.item-listing {
     }
     tr {
       td {
+        &.item {
+
+        }
         &.number {
           text-align: right;
         }
@@ -108,6 +121,10 @@ table.item-listing {
           border-radius: 6px;
           padding-top: 5px;
           padding-bottom: 5px;
+        }
+        font-size: 0.9em;
+        @media (min-width: 768px) {
+          font-size: 1.0em;
         }
       }
     }

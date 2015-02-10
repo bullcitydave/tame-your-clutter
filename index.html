@@ -7,7 +7,7 @@
     <title>1047 things</title>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    
+
 
     <!-- fonts -->
     <link href='http://fonts.googleapis.com/css?family=Cherry+Cream+Soda' rel='stylesheet' type='text/css'>
@@ -43,15 +43,15 @@
 
 
       <div class="row stuff-list">
-        <div class="col-lg-11 col-offset-1">
+        <div class="col-md-11 col-offset-1">
             <table class="item-listing">
               <thead data-bind="text: name"></thead>
               <th colspan=12 style="text-align:center" data-bind="text: total"></th>
               <tbody data-bind="foreach: { data : things}">
                 <tr>
-                  <td class="col-lg-6 item" data-bind="text: $data.attributes.stuff"></td>
-                  <td class="col-lg-2 count" data-bind="text: $data.attributes.count"></td>
-                  <td class="col-lg-3 date" data-bind="text: $data.attributes.dateDiscarded.toDateString()"></td>
+                  <td class="col-md-6 item" data-bind="text: $data.attributes.stuff"></td>
+                  <td class="col-md-2 count" data-bind="text: $data.attributes.count"></td>
+                  <td class="col-md-3 date" data-bind="text: $data.attributes.dateDiscarded.toDateString()"></td>
                 </tr>
               </tbody>
             </table>
