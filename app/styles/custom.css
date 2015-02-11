@@ -32,6 +32,7 @@ h3 {
   border-color: black;
   background-color: #132b6c;
   position: relative;
+  margin-bottom: 5px;
   /* on hover we animate the width to
    * 100% and opacity to 0 so the element
    * grows and fades out
@@ -78,7 +79,11 @@ table.item-listing {
     text-align: center;
     font-size: 2.0em;
     font-family: "Fjalla One", serif; }
-  table.item-listing tbody tr:nth-child(even) {
+    table.item-listing tbody th.subhead {
+      font-family: "Open Sans", "Helvetica", sans-serif;
+      font-size: 1.2em;
+      padding-bottom: 10px; }
+  table.item-listing tbody tr:nth-child(odd) {
     background-color: #eee; }
   table.item-listing tbody tr td {
     font-size: 0.9em; }

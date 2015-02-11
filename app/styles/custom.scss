@@ -48,6 +48,7 @@ h3 {
   border-color: black;
   background-color: $dark-blue;
   position: relative;
+  margin-bottom: 5px;
   &:hover, &:focus {
     color: white;
   }
@@ -104,8 +105,13 @@ table.item-listing {
       text-align: center;
       font-size: 2.0em;
       font-family: $custom-secondary-font;
+      &.subhead {
+        font-family: $custom-main-font;
+        font-size: 1.2em;
+        padding-bottom: 10px;
+      }
     }
-    tr:nth-child(even) {
+    tr:nth-child(odd) {
       background-color: #eee;
     }
     tr {
