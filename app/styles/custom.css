@@ -1,0 +1,103 @@
+/* COLORS : see http://rgb.to/color/6478/dark-cherry-red */
+body {
+  font-family: "Open Sans", "Helvetica", sans-serif; }
+
+h1 {
+  font-family: "Fjalla One", serif;
+  color: #132b6c; }
+
+h3 {
+  font-family: "Fjalla One", serif;
+  color: #6c132b; }
+
+.nav-pills > li > a {
+  color: #132b6c; }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  background-color: #132b6c; }
+
+.stuff-list {
+  padding: 15px;
+  border: 1px solid;
+  border-radius: 25px;
+  margin: 0; }
+
+.btn-start {
+  color: white;
+  background-color: rgba(108, 85, 19, 0.5);
+  border-color: #6c5513; }
+
+.btn-edit, .btn-add {
+  color: white;
+  border-color: black;
+  background-color: #132b6c;
+  position: relative;
+  margin-bottom: 5px;
+  /* on hover we animate the width to
+   * 100% and opacity to 0 so the element
+   * grows and fades out
+   */ }
+  .btn-edit:hover, .btn-add:hover, .btn-edit:focus, .btn-add:focus {
+    color: white; }
+  .btn-edit:after, .btn-add:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none; }
+  .btn-edit:hover:after, .btn-add:hover:after {
+    width: 120%;
+    background-color: rgba(255, 255, 255, 0);
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -ms-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out; }
+
+.btn-add {
+  background-color: darkred;
+  display: none; }
+
+table.item-listing {
+  width: 100%; }
+  table.item-listing.editable {
+    border-collapse: separate;
+    border-spacing: 5px; }
+  table.item-listing thead td.title {
+    font-size: 1.5em;
+    font-family: "Open Sans", "Helvetica", sans-serif;
+    padding-left: 5px; }
+    @media (min-width: 768px) {
+      table.item-listing thead td.title {
+        font-size: 2.5em; } }
+    table.item-listing thead td.title + td {
+      padding-right: 0; }
+  table.item-listing tbody th {
+    text-align: center;
+    font-size: 2.0em;
+    font-family: "Fjalla One", serif; }
+    table.item-listing tbody th.subhead {
+      font-family: "Open Sans", "Helvetica", sans-serif;
+      font-size: 1.2em;
+      padding-bottom: 10px; }
+  table.item-listing tbody tr:nth-child(odd) {
+    background-color: #eee; }
+  table.item-listing tbody tr td {
+    font-size: 0.9em; }
+    table.item-listing tbody tr td.number {
+      text-align: right; }
+    table.item-listing tbody tr td[contenteditable="true"] {
+      border: 1px solid #aeaeae;
+      border-radius: 6px;
+      padding-top: 5px;
+      padding-bottom: 5px; }
+    @media (min-width: 768px) {
+      table.item-listing tbody tr td {
+        font-size: 1.0em; } }

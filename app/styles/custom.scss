@@ -1,5 +1,5 @@
 $custom-main-font: 'Open Sans', 'Helvetica', sans-serif;
-$custom-secondary-font: 'Cherry Cream Soda', serif;
+$custom-secondary-font: 'Fjalla One', serif;
 
 
 /* COLORS : see http://rgb.to/color/6478/dark-cherry-red */
@@ -31,9 +31,10 @@ h3 {
 
 
 .stuff-list {
-  padding: 30px;
+  padding: 15px;
   border: 1px solid;
   border-radius: 25px;
+  margin: 0;
 }
 
 .btn-start {
@@ -42,19 +43,102 @@ h3 {
   border-color: $brown;
 }
 
+.btn-edit {
+  color: white;
+  border-color: black;
+  background-color: $dark-blue;
+  position: relative;
+  margin-bottom: 5px;
+  &:hover, &:focus {
+    color: white;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.6);
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+  }
+  /* on hover we animate the width to
+   * 100% and opacity to 0 so the element
+   * grows and fades out
+   */
+  &:hover:after {
+      width: 120%;
+      background-color: rgba(255,255,255,0);
+      -webkit-transition: all 0.4s ease-out;
+      -moz-transition: all 0.4s ease-out;
+      -ms-transition: all 0.4s ease-out;
+      -o-transition: all 0.4s ease-out;
+      transition: all 0.4s ease-out;
+  }
+}
+
+.btn-add {
+  @extend .btn-edit;
+  background-color: darkred;
+  display: none;
+}
+
 table.item-listing {
+  width: 100%;
+  &.editable {
+    border-collapse: separate;
+    border-spacing: 5px;
+  }
   thead {
-    font-size: 2.5em;
-    font-family: $custom-main-font;
+      td.title {
+        font-size: 1.5em;
+        @media (min-width: 768px) {
+          font-size: 2.5em;
+        }
+        font-family: $custom-main-font;
+        padding-left: 5px;
+        &+td {
+          padding-right: 0;
+        }
+      }
   }
   tbody {
     th {
       text-align: center;
       font-size: 2.0em;
       font-family: $custom-secondary-font;
+      &.subhead {
+        font-family: $custom-main-font;
+        font-size: 1.2em;
+        padding-bottom: 10px;
+      }
     }
-    tr:nth-child(even) {
+    tr:nth-child(odd) {
       background-color: #eee;
+    }
+    tr {
+      td {
+        &.item {
+
+        }
+        &.number {
+          text-align: right;
+        }
+        &[contenteditable="true"] {
+          border: 1px solid #aeaeae;
+          border-radius: 6px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+        font-size: 0.9em;
+        @media (min-width: 768px) {
+          font-size: 1.0em;
+        }
+      }
     }
   }
 }

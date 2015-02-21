@@ -3,8 +3,6 @@
 // generated on 2015-01-10 using generator-knockout-gulp-bootstrap 0.0.2
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var prompt = require('gulp-prompt');
-var exec = require('child_process').exec;
 
 // gulp.task('styles', function () {
 //   return gulp.src('app/styles/*.scss')
@@ -16,7 +14,7 @@ var exec = require('child_process').exec;
 //     .pipe($.autoprefixer('last 1 version'))
 //     .pipe(gulp.dest('.tmp/styles'));
 // });
-
+//
 gulp.task('styles', function() {
   return
     $.rubySass('app/styles/*.scss')
@@ -126,31 +124,10 @@ gulp.task('watch', ['connect', 'serve'], function () {
   gulp.watch('bower.json', ['wiredep']);
 });
 
-
-gulp.task('build', ['html', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', [ 'html', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
-
-// Push a subtree from our `dist` folder
-gulp.task('deploy', function() {
-
-  gulp.src('/')
-  .pipe(prompt.prompt({
-    type: 'confirm',
-    name: 'task',
-    message: 'This will deploy to GitHub Pages. Have you already built your application and pushed your updated master branch?'
-  }, function(res){
-    if (res.task){
-      console.log('Attempting: "git subtree push --prefix dist origin gh-pages"');
-      exec('git subtree push --prefix dist origin gh-pages', function(err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-      });
-    } else { console.log('Please do this first and then run `gulp deploy` again.'); }
-    }));
-
-  });
