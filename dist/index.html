@@ -4,13 +4,21 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+<<<<<<< HEAD
+    <title>1047 things</title>
+=======
     <title>Tame Your Clutter</title>
+>>>>>>> master
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     
 
     <!-- fonts -->
+<<<<<<< HEAD
+    <link href='http://fonts.googleapis.com/css?family=Cherry+Cream+Soda' rel='stylesheet' type='text/css'>
+=======
     <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+>>>>>>> master
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <!-- end fonts -->
 
@@ -31,6 +39,16 @@
           <li><a href="#">Sign Up</a></li>
           <li><a href="#">Login</a></li>
         </ul>
+<<<<<<< HEAD
+        <h3 class="text-muted">1047 things</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Tame Your Clutter</h1>
+        <!-- <p class="lead">Your current count is <span data-bind="text: (self.getCount() != undefined) ? self.getCount() : 0, style: { color : (self.getCount() > 500) ? 'red' : 'blue'}">.</p> -->
+        <p><a class="btn btn-lg btn-start" href="#">Start Now</a></p>
+      </div>
+=======
         <h3 class="text-muted">Tame Your Clutter</h3>
       </div>
 
@@ -39,10 +57,22 @@
         <!-- <p class="lead">Your current count is <span data-bind="text: (self.getCount() != undefined) ? self.getCount() : 0, style: { color : (self.getCount() > 500) ? 'red' : 'blue'}">.</p> -->
         <!-- <p><a class="btn btn-lg btn-start" href="#">Start Now</a></p> -->
       <!-- </div> -->
+>>>>>>> master
 
 
 
       <div class="row stuff-list">
+<<<<<<< HEAD
+        <div class="col-lg-11 col-offset-1">
+            <table class="item-listing">
+              <thead data-bind="text: name"></thead>
+              <th colspan=12 style="text-align:center" data-bind="text: total"></th>
+              <tbody data-bind="foreach: { data : things}">
+                <tr>
+                  <td class="col-lg-6 item" data-bind="text: $data.attributes.stuff"></td>
+                  <td class="col-lg-2 count" data-bind="text: $data.attributes.count"></td>
+                  <td class="col-lg-3 date" data-bind="text: $data.attributes.dateDiscarded.toDateString()"></td>
+=======
         <div>
             <table class="item-listing">
               <thead>
@@ -65,6 +95,7 @@
                   <td class="col-xs-5 col-sm-8 item"  data-bind="text: $data.attributes.stuff"></td>
                   <td class="col-xs-1 col-sm-1 number"  data-bind="text: $data.attributes.count"></td>
                   <td class="col-xs-6 col-sm-3 date text-right" data-bind="text: $parent.formatDate($data.attributes.dateDiscarded)"></td>
+>>>>>>> master
                 </tr>
               </tbody>
             </table>
@@ -72,7 +103,11 @@
         </div>
 
       <div class="footer">
+<<<<<<< HEAD
+        <p>©2015 2047 Things</p>
+=======
         <p>©2015 Tame Your Clutter</p>
+>>>>>>> master
         <!-- <button type="submit" data-bind="text: (self.getCount() == 781) ? 'Create' : 'Update'"></button> -->
       </div>
 
@@ -99,6 +134,49 @@
 
         // PARSE CONNECTION
         // This function is for me while I'm testing
+<<<<<<< HEAD
+        function doesConnectionExist() {
+          var xhr = new XMLHttpRequest();
+          var file = "https://avatars1.githubusercontent.com/u/7648787";
+          var randomNum = Math.round(Math.random() * 10000);
+
+          xhr.open('HEAD', file + "?rand=" + randomNum, false);
+
+          try {
+            xhr.send();
+
+            if (xhr.status >= 200 && xhr.status < 304) {
+              return true;
+            } else {
+              return false;
+            }
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function runningLocally() {
+          if (document.location.href.indexOf("localhost") > -1) {
+            console.log('Running locally');
+            return true;
+          }
+        }
+
+        var local = runningLocally();
+        console.log(local);
+
+
+
+        if (!(doesConnectionExist()))  {
+          alert('It looks like there may be a problem with your internet connection.' );
+        }
+        try {
+          Parse.initialize("EohFLOiyiQ8bLZ1b4AKTksANagOxnKmKvTNWk9ny", "Ba9ZGY0yfK5tgrt27SJXwy6mTB4aS3LZFvN9QvrJ");
+        }  catch (exception)
+      {
+        alert('It looks like AddStuff is having trouble connecting to its database server. We\'re quite sorry. Please try again shortly.' )
+      };
+=======
         // function doesConnectionExist() {
         //   var xhr = new XMLHttpRequest();
         //   var file = "https://avatars1.githubusercontent.com/u/7648787";
@@ -140,6 +218,7 @@
       // {
       //   alert('It looks like AddStuff is having trouble connecting to its database server. We\'re quite sorry. Please try again shortly.' )
       // };
+>>>>>>> master
 
        ////////
 
@@ -184,6 +263,10 @@ function ThingsViewModel(name, things) {
   self.things = things;
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
   self.getName = function() {
     return self.name;
   };
@@ -194,6 +277,12 @@ function ThingsViewModel(name, things) {
       total += stuff.models[i].attributes.count;
     }
     return total;
+<<<<<<< HEAD
+  }
+
+  self.total = self.getTotal();
+
+=======
   };
 
   // self.getLiveTotal = function() {
@@ -249,6 +338,7 @@ function ThingsViewModel(name, things) {
     })
   })
 
+>>>>>>> master
 
 
   self.sleep =
@@ -260,6 +350,11 @@ function ThingsViewModel(name, things) {
     console.log('done!');
   }
 
+<<<<<<< HEAD
+};
+
+
+=======
   self.updateItem = function(event) {
     console.log('thisworks');
   }
@@ -297,6 +392,7 @@ function ThingsViewModel(name, things) {
 
   self.THINGS = ko.observableArray();
 
+>>>>>>> master
           // function getStuff () {
   var stuffQuery = new Parse.Query("stuffEntry");
   stuffQuery.limit(1000);
@@ -305,11 +401,17 @@ function ThingsViewModel(name, things) {
   stuff.fetch({
     success: function(stuff) {
 
+<<<<<<< HEAD
+      var thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models);
+
+      ko.applyBindings(thingsViewModel);
+=======
       // var thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models);
       thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models); // have available CLI
       ko.applyBindings(thingsViewModel);
       (self.THINGS).push(thingsViewModel.things);
 
+>>>>>>> master
     },
     error: function(stuff, error) {
       console.error(error);
