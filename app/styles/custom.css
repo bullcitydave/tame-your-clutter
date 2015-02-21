@@ -27,7 +27,7 @@ h3 {
   background-color: rgba(108, 85, 19, 0.5);
   border-color: #6c5513; }
 
-.btn-edit {
+.btn-edit, .btn-add {
   color: white;
   border-color: black;
   background-color: #132b6c;
@@ -37,9 +37,9 @@ h3 {
    * 100% and opacity to 0 so the element
    * grows and fades out
    */ }
-  .btn-edit:hover, .btn-edit:focus {
+  .btn-edit:hover, .btn-add:hover, .btn-edit:focus, .btn-add:focus {
     color: white; }
-  .btn-edit:after {
+  .btn-edit:after, .btn-add:after {
     content: "";
     position: absolute;
     top: 0px;
@@ -52,7 +52,7 @@ h3 {
     -ms-transition: none;
     -o-transition: none;
     transition: none; }
-  .btn-edit:hover:after {
+  .btn-edit:hover:after, .btn-add:hover:after {
     width: 120%;
     background-color: rgba(255, 255, 255, 0);
     -webkit-transition: all 0.4s ease-out;
@@ -60,6 +60,10 @@ h3 {
     -ms-transition: all 0.4s ease-out;
     -o-transition: all 0.4s ease-out;
     transition: all 0.4s ease-out; }
+
+.btn-add {
+  background-color: darkred;
+  display: none; }
 
 table.item-listing {
   width: 100%; }
@@ -97,5 +101,3 @@ table.item-listing {
     @media (min-width: 768px) {
       table.item-listing tbody tr td {
         font-size: 1.0em; } }
-
-/*# sourceMappingURL=custom.css.map */

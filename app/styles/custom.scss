@@ -81,6 +81,12 @@ h3 {
   }
 }
 
+.btn-add {
+  @extend .btn-edit;
+  background-color: darkred;
+  display: none;
+}
+
 table.item-listing {
   width: 100%;
   &.editable {
