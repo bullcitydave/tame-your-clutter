@@ -34,11 +34,11 @@
         <h3 class="text-muted">Tame Your Clutter</h3>
       </div>
 
-      <div class="jumbotron">
+      <!-- <div class="jumbotron">
         <h1>Tame Your Clutter</h1>
         <!-- <p class="lead">Your current count is <span data-bind="text: (self.getCount() != undefined) ? self.getCount() : 0, style: { color : (self.getCount() > 500) ? 'red' : 'blue'}">.</p> -->
-        <p><a class="btn btn-lg btn-start" href="#">Start Now</a></p>
-      </div>
+        <!-- <p><a class="btn btn-lg btn-start" href="#">Start Now</a></p> -->
+      <!-- </div> -->
 
 
 
@@ -49,6 +49,7 @@
                 <tr>
                   <td class="col-xs-6 col-sm-9 title" colspan="2" data-bind="text: name"></td>
                   <td class="col-xs-6 col-sm-3 text-right">
+                    <a class="btn btn-lg btn-add">&nbsp;+&nbsp;</a>
                     <a class="btn btn-lg btn-edit">Edit</a>
                   </td>
                 </tr>
@@ -60,7 +61,7 @@
                 <th class="subhead" colspan="3" style="text-align:center" data-bind="text: remaining + ' items remaining'"></th>
               </tr>
               <tbody data-bind="foreach: { data : things}">
-                <tr>
+                <tr data-bind="attr: { id:  $data.id }">
                   <td class="col-xs-5 col-sm-8 item"  data-bind="text: $data.attributes.stuff"></td>
                   <td class="col-xs-1 col-sm-1 number"  data-bind="text: $data.attributes.count"></td>
                   <td class="col-xs-6 col-sm-3 date text-right" data-bind="text: $parent.formatDate($data.attributes.dateDiscarded)"></td>
@@ -224,7 +225,29 @@ function ThingsViewModel(name, things) {
   self.remaining = self.getRemaining();
 
 
+  self.insertRow = function() {
+    /* first, the ugly way...nicer way later */
+    var row ="<tr><td class='col-xs-5 col-sm-8 item' data-bind='event: { onblur: $parent.updateItem }'  contenteditable='true'></td><td class='col-xs-1 col-sm-1 number' contenteditable='true'></td><td class='col-xs-6 col-sm-3 date text-right' contenteditable='true'></td></tr>";
+    var tbody = $('tbody:nth-of-type(2)');
+    $(tbody).prepend(row);
 
+  }
+
+  /* put this into a KO event */
+  $(document).on('click','.date', function (e) {
+    var thingId = $(e.target).parent().attr('id');
+    var count = parseInt($(e.target).siblings('.number').html());
+    var query = new Parse.Query('stuffEntry');
+    query.get(thingId, {
+      success: function(thing) {
+        thing.set("count", count);
+        thing.save();
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    })
+  })
 
 
 
@@ -237,14 +260,28 @@ function ThingsViewModel(name, things) {
     console.log('done!');
   }
 
+  self.updateItem = function(event) {
+    console.log('thisworks');
+  }
+
   self.edit = function() {
     $('tbody td').attr('contenteditable',"true");
     $('table.item-listing').addClass('editable');
   }
 
   $('.btn.btn-edit').on('click', function (e) {
+    $(this).hide();
+    $('.btn-add').show();
      self.edit();
   })
+
+  self.myText = ko.observable('');
+
+  $('.btn.btn-add').on('click', function (e) {
+     self.insertRow();
+     $('td.item').first().focus();
+    //  ko.applyBindings(self);
+   })
 
 };
 
@@ -258,7 +295,7 @@ function ThingsViewModel(name, things) {
 //
 // };
 
-
+  self.THINGS = ko.observableArray();
 
           // function getStuff () {
   var stuffQuery = new Parse.Query("stuffEntry");
@@ -271,6 +308,8 @@ function ThingsViewModel(name, things) {
       // var thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models);
       thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models); // have available CLI
       ko.applyBindings(thingsViewModel);
+      (self.THINGS).push(thingsViewModel.things);
+
     },
     error: function(stuff, error) {
       console.error(error);
@@ -284,6 +323,8 @@ function ThingsViewModel(name, things) {
           }
           console.log('done!');
         }
+
+
 
         </script>
 </body>
