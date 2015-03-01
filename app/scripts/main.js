@@ -39,7 +39,6 @@ function ThingsViewModel(name, things) {
       $.each($('.number input'), function(index, thing) {
          sum += parseInt($(thing).val());
       })
-      // self.total = sum;
       return sum;
     };
 
@@ -65,8 +64,8 @@ function ThingsViewModel(name, things) {
   };
 
   self.getRemaining = function() {
-    return (1000 - self.total);
-  }
+    return (1000 - self.total());
+  };
 
   self.remaining = self.getRemaining();
 
@@ -133,9 +132,12 @@ function ThingsViewModel(name, things) {
    })
 
 /* why do i need the 2nd line? or even the first line? why doesn't total automatically update */
+/* and as for remaining, i shouldn't have to do this */
    $(document).on("change", ".number input", function (e) {
      self.total = self.getLiveTotal();
      $('th[data-bind$=total]').html(self.total);
+     self.remaining = (1000 - self.total);
+     $('span[data-bind$=remaining]').html(self.remaining);
    })
 
 };
@@ -177,3 +179,22 @@ function ThingsViewModel(name, things) {
           }
           console.log('done!');
         }
+
+
+/* Focus to end of input */
+/* http://stackoverflow.com/a/24635747/3705037 */
+
+        (function($){
+            $.fn.focusTextToEnd = function(){
+                this.focus();
+                var $thisVal = this.val();
+                this.val('').val($thisVal);
+                return this;
+            }
+        }(jQuery));
+
+        /* */
+
+        $(document).on("click", "input", function(e) {
+          $(e.target).focusTextToEnd();
+        })
