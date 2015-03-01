@@ -8,6 +8,12 @@ $dark-blue: rgb(19, 43, 108);
 $green: rgb(19, 108, 85);
 $brown: rgb(108, 85, 19);
 
+/* RESPONSIVE */
+$mobile: '320px';
+$tablet: '768px';
+$desktop: '992px';
+
+
 body {
   font-family: $custom-main-font;
 }
@@ -92,6 +98,11 @@ table.item-listing {
   &.editable {
     border-collapse: separate;
     border-spacing: 5px;
+    tbody {
+      tr:nth-child(odd) {
+        background-color: initial;
+      }
+    }
   }
   thead {
       td.title {
@@ -122,21 +133,31 @@ table.item-listing {
     }
     tr {
       td {
-        &.item {
-
-        }
-        &.number {
-          text-align: right;
-        }
-        &[contenteditable="true"] {
-          border: 1px solid #aeaeae;
-          border-radius: 6px;
-          padding-top: 5px;
-          padding-bottom: 5px;
+        input {
+          width: 100%;
+          &[readonly] {
+            border: none;
+            background-color: transparent;
+          }
+          &:not([readonly]) {
+            width: 100%;
+            border: 2px solid #eaeaea;
+            border-radius: 5px;
+            padding: 5px 8px;
+          }
         }
         font-size: 0.9em;
-        @media (min-width: 768px) {
+        padding-left: 0;
+        padding-right: 0;
+        @media (min-width: $tablet) {
           font-size: 1.0em;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+        @media (min-width: $desktop) {
+          font-size: 1.1em;
+          padding-left: 10px;
+          padding-right: 10px;
         }
       }
     }

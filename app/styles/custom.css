@@ -1,4 +1,5 @@
 /* COLORS : see http://rgb.to/color/6478/dark-cherry-red */
+/* RESPONSIVE */
 body {
   font-family: "Open Sans", "Helvetica", sans-serif; }
 
@@ -70,6 +71,8 @@ table.item-listing {
   table.item-listing.editable {
     border-collapse: separate;
     border-spacing: 5px; }
+    table.item-listing.editable tbody tr:nth-child(odd) {
+      background-color: initial; }
   table.item-listing thead td.title {
     font-size: 1.5em;
     font-family: "Open Sans", "Helvetica", sans-serif;
@@ -90,14 +93,26 @@ table.item-listing {
   table.item-listing tbody tr:nth-child(odd) {
     background-color: #eee; }
   table.item-listing tbody tr td {
-    font-size: 0.9em; }
-    table.item-listing tbody tr td.number {
-      text-align: right; }
-    table.item-listing tbody tr td[contenteditable="true"] {
-      border: 1px solid #aeaeae;
-      border-radius: 6px;
-      padding-top: 5px;
-      padding-bottom: 5px; }
+    font-size: 0.9em;
+    padding-left: 0;
+    padding-right: 0; }
+    table.item-listing tbody tr td input {
+      width: 100%; }
+      table.item-listing tbody tr td input[readonly] {
+        border: none;
+        background-color: transparent; }
+      table.item-listing tbody tr td input:not([readonly]) {
+        width: 100%;
+        border: 2px solid #eaeaea;
+        border-radius: 5px;
+        padding: 5px 8px; }
     @media (min-width: 768px) {
       table.item-listing tbody tr td {
-        font-size: 1.0em; } }
+        font-size: 1.0em;
+        padding-left: 5px;
+        padding-right: 5px; } }
+    @media (min-width: 992px) {
+      table.item-listing tbody tr td {
+        font-size: 1.1em;
+        padding-left: 10px;
+        padding-right: 10px; } }
