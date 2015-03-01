@@ -72,7 +72,7 @@ function ThingsViewModel(name, things) {
 
   self.insertRow = function() {
     /* first, the ugly way...nicer way later */
-    var row ="<tr><td class='col-xs-5 col-sm-8 item' data-bind='event: { onblur: $parent.updateItem }'  readonly='false'></td><td class='col-xs-1 col-sm-1 number' readonly='false'></td><td class='col-xs-6 col-sm-3 date text-right' readonly='false'></td></tr>";
+    var row ="<tr class='new'><td class='col-xs-5 col-sm-8 item' data-bind='event: { onblur: $parent.updateItem }'  readonly='false'><input/></td><td class='col-xs-1 col-sm-1 number' readonly='false'><input class='text-right'/></td><td class='col-xs-6 col-sm-3 date' readonly='false'><input class='text-right'/></td></tr>";
     var tbody = $('tbody:nth-of-type(2)');
     $(tbody).prepend(row);
 
@@ -92,7 +92,25 @@ function ThingsViewModel(name, things) {
       })
     };
 
-
+  self.submitNewStuff = function(stuff, count, dateDiscarded) {
+  var newStuff = new StuffEntry ({
+     count: count,
+     stuff: stuff,
+     dateDiscarded: new Date(dateDiscarded),
+     User: {
+        __type: "Pointer",
+        className: "_User",
+        objectId: "79GU8BnUu3e"
+        // objectId: Parse.User.current().getUsername()
+      },
+     list:  {
+        __type: "Pointer",
+        className: "listOfStuff",
+        objectId: "nwGt0sl8pa"
+      }
+   });
+   newStuff.save();
+ }
 
   self.sleep =
   function(milliseconds) {
@@ -115,7 +133,7 @@ function ThingsViewModel(name, things) {
   $('.btn.btn-edit').on('click', function (e) {
     $(this).hide();
     $('.btn-add').show();
-     self.edit();
+    self.edit();
   })
 
   self.myText = ko.observable('');
@@ -124,13 +142,13 @@ function ThingsViewModel(name, things) {
 
   $('.btn.btn-add').on('click', function (e) {
      self.insertRow();
-     $('td.item').first().focus();
+     $('td.item input').first().focus();
     //  ko.applyBindings(self);
    })
 
 /* why do i need the 2nd line? or even the first line? why doesn't total automatically update */
 /* and as for remaining, i shouldn't have to do this */
-   $(document).on("change", ".number input", function (e) {
+   $(document).on("change", "tr:not(.new) .number input", function (e) {
      self.total = self.getLiveTotal();
      $('th[data-bind$=total]').html(self.total);
      self.remaining = (1000 - self.total);
@@ -143,13 +161,24 @@ function ThingsViewModel(name, things) {
      self.updateDatabase(itemId, "count", things[0].attributes.count);
    })
 
-   $(document).on("change", ".item input", function (e) {
-
+   $(document).on("change", "tr:not(.new) .item input", function (e) {
      var itemId = $(e.target).closest('tr').attr('data-thing-id');
      var things = $.grep(self.things(), function(e){ return e.id === itemId; });
      things[0].attributes.stuff = $(e.target).val();
 
      self.updateDatabase(itemId, "stuff", things[0].attributes.stuff);
+   })
+
+   $(document).on("change", "tr:not(.new) .date input", function (e) {
+
+     var itemId = $(e.target).closest('tr').attr('data-thing-id');
+     var things = $.grep(self.things(), function(e){ return e.id === itemId; });
+
+     var strDate = $(e.target).val();
+     var jsDate = new Date(strDate);
+     things[0].attributes.dateDiscarded = jsDate;
+
+     self.updateDatabase(itemId, "dateDiscarded", things[0].attributes.dateDiscarded);
    })
 
 };
@@ -210,3 +239,8 @@ function ThingsViewModel(name, things) {
         $(document).on("click", "input", function(e) {
           $(e.target).focusTextToEnd();
         })
+
+
+  /* Parse Classes */
+
+  var StuffEntry = Parse.Object.extend("stuffEntry");
