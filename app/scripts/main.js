@@ -78,22 +78,19 @@ function ThingsViewModel(name, things) {
 
   }
 
-  /* put this into a KO event */
-  $(document).on('click','.date', function (e) {
-    var thingId = $(e.target).closest('tr').attr('data-thing-id');
-    var count = parseInt($(e.target).closest('tr').find('.number input').val());
-    var query = new Parse.Query('stuffEntry');
-    query.get(thingId, {
-      success: function(thing) {
-        thing.set("count", count);
-        thing.save();
-        console.log('Count updated to ', count);
-      },
-      error: function(object, error) {
-        console.log("Error: " + error.code + " " + error.message);
-      }
-    })
-  })
+  self.updateDatabase = function(thingId, col, val) {
+      var query = new Parse.Query('stuffEntry');
+      query.get(thingId, {
+        success: function(thing) {
+          thing.set(col, val);
+          thing.save();
+          console.log(col + ' updated to '+ val);
+        },
+        error: function(object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        }
+      })
+    };
 
 
 
@@ -138,6 +135,21 @@ function ThingsViewModel(name, things) {
      $('th[data-bind$=total]').html(self.total);
      self.remaining = (1000 - self.total);
      $('span[data-bind$=remaining]').html(self.remaining);
+
+     var itemId = $(e.target).closest('tr').attr('data-thing-id');
+     var things = $.grep(self.things(), function(e){ return e.id === itemId; });
+     things[0].attributes.count = parseInt($(e.target).val());
+
+     self.updateDatabase(itemId, "count", things[0].attributes.count);
+   })
+
+   $(document).on("change", ".item input", function (e) {
+
+     var itemId = $(e.target).closest('tr').attr('data-thing-id');
+     var things = $.grep(self.things(), function(e){ return e.id === itemId; });
+     things[0].attributes.stuff = $(e.target).val();
+
+     self.updateDatabase(itemId, "stuff", things[0].attributes.stuff);
    })
 
 };
