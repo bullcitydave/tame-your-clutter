@@ -18,14 +18,14 @@ function ThingsViewModel(name, things) {
   self.user = 'Bull City Dave';
   self.name = name;
 
-  self.things = things;
+  self.things = ko.observableArray(things);
 
 
   self.getName = function() {
     return self.name;
   };
 
-  self.getTotal = function() {
+  self.getInitTotal = function() {
     var total = 0;
     for (var i = 0; i < things.length; i++) {
       total += stuff.models[i].attributes.count;
@@ -33,16 +33,27 @@ function ThingsViewModel(name, things) {
     return total;
   };
 
-  // self.getLiveTotal = function() {
-  //   var numbers = $('td.number');
-  //   sum = 0;
-  //   $.each(numbers, function (index, number) {
-  //     sum += parseInt($(number).html());
-  //   })
-  //   return sum;
-  // }
-  //
-  // self.liveTotal = self.getLiveTotal();
+  // can probably get rid of this if stuff collection remains observable
+    self.getLiveTotal = function() {
+      var sum = 0;
+      $.each($('.number input'), function(index, thing) {
+         sum += parseInt($(thing).val());
+      })
+      // self.total = sum;
+      return sum;
+    };
+
+  self.total = ko.computed(function() {
+    if(isNaN(self.getLiveTotal())) {
+      return self.getInitTotal();
+    }
+    else {
+      return self.getLiveTotal();
+    }
+  });
+
+
+
 
 
 
@@ -52,8 +63,6 @@ function ThingsViewModel(name, things) {
     var year = date.getFullYear();
     return (month + '-' + dayOfMonth + '-' + year);
   };
-
-  self.total = self.getTotal();
 
   self.getRemaining = function() {
     return (1000 - self.total);
@@ -115,10 +124,18 @@ function ThingsViewModel(name, things) {
 
   self.myText = ko.observable('');
 
+
+
   $('.btn.btn-add').on('click', function (e) {
      self.insertRow();
      $('td.item').first().focus();
     //  ko.applyBindings(self);
+   })
+
+/* why do i need the 2nd line? or even the first line? why doesn't total automatically update */
+   $(document).on("change", ".number input", function (e) {
+     self.total = self.getLiveTotal();
+     $('th[data-bind$=total]').html(self.total);
    })
 
 };
@@ -133,7 +150,7 @@ function ThingsViewModel(name, things) {
 //
 // };
 
-  self.THINGS = ko.observableArray();
+
 
           // function getStuff () {
   var stuffQuery = new Parse.Query("stuffEntry");
@@ -146,7 +163,6 @@ function ThingsViewModel(name, things) {
       // var thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models);
       thingsViewModel = new ThingsViewModel('January 2015 Stuff', stuff.models); // have available CLI
       ko.applyBindings(thingsViewModel);
-      (self.THINGS).push(thingsViewModel.things);
 
     },
     error: function(stuff, error) {
