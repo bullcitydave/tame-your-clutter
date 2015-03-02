@@ -69,6 +69,12 @@ function ThingsViewModel(name, things) {
 
   self.remaining = self.getRemaining();
 
+  self.updateTotal = function() {
+    self.total = self.getLiveTotal();
+    $('th[data-bind$=total]').html(self.total);
+    self.remaining = (1000 - self.total);
+    $('span[data-bind$=remaining]').html(self.remaining);
+  }
 
   self.insertRow = function() {
     /* first, the ugly way...nicer way later */
@@ -92,25 +98,38 @@ function ThingsViewModel(name, things) {
       })
     };
 
-  self.submitNewStuff = function(stuff, count, dateDiscarded) {
-  var newStuff = new StuffEntry ({
-     count: count,
-     stuff: stuff,
-     dateDiscarded: new Date(dateDiscarded),
-     User: {
-        __type: "Pointer",
-        className: "_User",
-        objectId: "79GU8BnUu3e"
-        // objectId: Parse.User.current().getUsername()
-      },
-     list:  {
-        __type: "Pointer",
-        className: "listOfStuff",
-        objectId: "nwGt0sl8pa"
-      }
-   });
-   newStuff.save();
- }
+  self.submitNewStuff = function(stuff, count, dateDiscarded, record) {
+    var newStuff = new StuffEntry ({
+       count: count,
+       stuff: stuff,
+       dateDiscarded: new Date(dateDiscarded),
+       User: {
+          __type: "Pointer",
+          className: "_User",
+          objectId: "79GU8BnUu3e"
+          // objectId: Parse.User.current().getUsername()
+        },
+       list:  {
+          __type: "Pointer",
+          className: "listOfStuff",
+          objectId: "nwGt0sl8pa"
+        }
+     });
+     newStuff.save(null, {
+        success: function(newStuff) {
+          // Execute any logic that should take place after the object is saved.
+          alert('New stuffcreated with objectId: ' + newStuff.id);
+          (self.things).push(newStuff);
+          $(record).removeClass('new');
+          $(record).attr('data-thing-id', newStuff.id);
+        },
+        error: function(newStuff, error) {
+          // Execute any logic that should take place if the save fails.
+          // error is a Parse.Error with an error code and message.
+          alert('Failed to create new object, with error code: ' + error.message);
+        }
+      });
+    }
 
   self.sleep =
   function(milliseconds) {
@@ -149,10 +168,7 @@ function ThingsViewModel(name, things) {
 /* why do i need the 2nd line? or even the first line? why doesn't total automatically update */
 /* and as for remaining, i shouldn't have to do this */
    $(document).on("change", "tr:not(.new) .number input", function (e) {
-     self.total = self.getLiveTotal();
-     $('th[data-bind$=total]').html(self.total);
-     self.remaining = (1000 - self.total);
-     $('span[data-bind$=remaining]').html(self.remaining);
+     self.updateTotal();
 
      var itemId = $(e.target).closest('tr').attr('data-thing-id');
      var things = $.grep(self.things(), function(e){ return e.id === itemId; });
@@ -181,7 +197,26 @@ function ThingsViewModel(name, things) {
      self.updateDatabase(itemId, "dateDiscarded", things[0].attributes.dateDiscarded);
    })
 
+   $(document).on("change", "tr.new input", function (e) {
+
+   // Crude validation for now
+   var record = $(e.target).closest('tr');
+   var item = $(record).find('td.item input').val();
+   var count = parseInt($(record).find('td.number input').val());
+   var dDate = $(record).find('td.date input').val();
+   if ((item.length  > 0) && (count  > 0) && (!isNaN(parseInt(dDate)))) {
+     console.log('validates!');
+     self.updateTotal();
+     self.submitNewStuff(item, count, dDate, record);
+   }
+   else {
+     console.log('nope!');
+   }
+   })
+
 };
+
+
 
 
 // function ThingViewModel(thing) {
