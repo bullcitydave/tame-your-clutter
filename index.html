@@ -64,13 +64,13 @@
               </tr>
               <tbody data-bind="foreach: { data : things}">
                 <tr data-bind="attr: { 'data-thing-id':  $data.id }">
-                  <td class="col-xs-5 col-sm-6 item">
+                  <td class="col-xs-5 col-sm-7 item">
                     <input readonly data-bind="textInput: $data.attributes.stuff"/>
                   </td>
                   <td class="col-xs-2 col-sm-2 number">
                     <input class="text-right" readonly data-bind="textInput: $data.attributes.count"/>
                   </td>
-                  <td class="col-xs-5 col-sm-4 date">
+                  <td class="col-xs-5 col-sm-3 date">
                     <input class="text-right" readonly data-bind="textInput: $parent.formatDate($data.attributes.dateDiscarded)"/>
                   </td>
                 </tr>
