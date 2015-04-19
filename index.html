@@ -71,7 +71,10 @@
                     <input type="number" class="text-right" readonly data-bind="textInput: $data.attributes.count"/>
                   </td>
                   <td class="col-xs-5 col-sm-3 date">
-                    <input type="date" class="text-right" readonly value="2015-04-19" data-bind="textInput: $parent.formatDate($data.attributes.dateDiscarded)"/>
+                    <input type="date" class="text-right" readonly data-bind="textInput: $parent.formatDate($data.attributes.dateDiscarded)"/>
+                  </td>
+                  <td class="remove">
+                    <span class="glyphicon glyphicon-remove"></span>
                   </td>
                 </tr>
               </tbody>
