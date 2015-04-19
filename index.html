@@ -68,10 +68,10 @@
                     <input readonly data-bind="textInput: $data.attributes.stuff"/>
                   </td>
                   <td class="col-xs-2 col-sm-2 number">
-                    <input class="text-right" readonly data-bind="textInput: $data.attributes.count"/>
+                    <input type="number" class="text-right" readonly data-bind="textInput: $data.attributes.count"/>
                   </td>
                   <td class="col-xs-5 col-sm-3 date">
-                    <input class="text-right" readonly data-bind="textInput: $parent.formatDate($data.attributes.dateDiscarded)"/>
+                    <input type="date" class="text-right" readonly value="2015-04-19" data-bind="textInput: $parent.formatDate($data.attributes.dateDiscarded)"/>
                   </td>
                 </tr>
               </tbody>
